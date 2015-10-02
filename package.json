@@ -1,0 +1,28 @@
+{
+  "name": "cordova-ews-wrapper",
+  "version": "0.0.1",
+  "description": "Expose EWS-Java-API (https://github.com/OfficeDev/ews-java-api)",
+  "cordova": {
+    "id": "cordova-ews-wrapper",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sauvainr/cordova-ews-wrapper"
+  },
+  "keywords": [
+    "cordova",
+    "ews",
+    "office",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "engines": [{
+    "name": "cordova",
+    "version": ">=3.0.0"
+  }],
+  "author": "Renaud Sauvain",
+  "license": "MIT"
+}

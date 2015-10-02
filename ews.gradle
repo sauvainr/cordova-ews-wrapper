@@ -1,0 +1,9 @@
+repositories {
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+}
+
+dependencies {
+    compile 'com.microsoft.ews-java-api:ews-java-api:2.0-SNAPSHOT'
+}
