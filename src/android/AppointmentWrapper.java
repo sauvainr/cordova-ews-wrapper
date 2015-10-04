@@ -16,6 +16,7 @@ import microsoft.exchange.webservices.data.core.enumeration.property.*;
 import microsoft.exchange.webservices.data.property.complex.*;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.joda.time.DateTime;
 
 public class AppointmentWrapper extends Appointment {
 
