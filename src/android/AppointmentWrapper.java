@@ -10,10 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import Microsoft.Exchange.WebServices.Data;
-import Microsoft.Exchange.WebServices.Data.*;
-
-import microsoft.exchange.webservices.data;
 import microsoft.exchange.webservices.data.*;
 import microsoft.exchange.webservices.data.core.*;
 import microsoft.exchange.webservices.data.core.service.item.*;
