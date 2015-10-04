@@ -131,7 +131,9 @@ public class EWSWrapper extends CordovaPlugin {
     }
 
   }catch(Exception e){
-    throw new JSONException(e.getMessage());
+    System.err.println("Exception: " + e.getMessage());
+    callbackContext.error(e.getMessage());
+    return false;
   }
     callbackContext.error("Action failed..");
     return false;
