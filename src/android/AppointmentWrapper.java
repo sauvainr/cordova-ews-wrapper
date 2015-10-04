@@ -56,7 +56,7 @@ public class AppointmentWrapper extends Appointment {
     JSONArray attendees = jsObject.getJSONArray("attendees");
     if(attendees != null){
 
-      this.getRequiredAttendees().Clear();
+      this.getRequiredAttendees().clear();
 
       for (int i = 0, len = attendees.length(); i < len; i++) {
           this.getRequiredAttendees().add(attendees[i]);

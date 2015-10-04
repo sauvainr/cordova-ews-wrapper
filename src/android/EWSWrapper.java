@@ -42,26 +42,42 @@ public class EWSWrapper extends CordovaPlugin {
       return false;
     }
 
+    String serverUrl = null;
+    String email = null;
+    String password = null;
+    Boolean success = null;
+
+    String calId = null;
+    String meetingId = null;
+    String title = null;
+    String startISO = null;
+    String endISO = null;
+
+    CalendarFolder calendar = null;
+    JSONArray calendars = null;
+    JSONArray meetings = null;
+    JSONObject jsMeeting = null;
+
     switch (action.toLowerCase()) {
 
       case "init":
-      String serverUrl = args.getString(0);
-      String email = args.getString(1);
-      String password = args.getString(2);
+      serverUrl = args.getString(0);
+      email = args.getString(1);
+      password = args.getString(2);
       this.ewsProxy = new EWSProxy(serverUrl, email, password);
-      Boolean success = this.ewsProxy != null && this.ewsProxy.defaultCalendar != null;
-      callbackContext.success(success);
+      success = this.ewsProxy != null && this.ewsProxy.defaultCalendar != null;
+      callbackContext.success(java.lang.Boolean.toString(success));
       return success;
 
       case "connect":
-      String email = args.getString(0);
-      String password = args.getString(1);
-      Boolean success = this.ewsProxy.connect(email, password);
+      email = args.getString(0);
+      password = args.getString(1);
+      success = this.ewsProxy.connect(email, password);
       callbackContext.success(java.lang.Boolean.toString(success));
       return success;
 
       case "getCalendars":
-      JSONArray calendars = this.ewsProxy.getJSONCalendars();
+      calendars = this.ewsProxy.getJSONCalendars();
       if(calendars != null) {
         callbackContext.success(calendars);
         return true;
@@ -69,41 +85,41 @@ public class EWSWrapper extends CordovaPlugin {
       break;
 
       case "createCalendar":
-      String title = args.getString(0);
-      CalendarFolder calendar = this.ewsProxy.createCalendar(title);
+      title = args.getString(0);
+      calendar = this.ewsProxy.createCalendar(title);
       if(calendar != null){
-        String calId = calendar.getId().toString();
+        calId = calendar.getId().toString();
         callbackContext.success(calId);
         return true;
       }
       break;
 
       case "selectCalendar":
-      String calId = args.getString(0);
-      CalendarFolder calendar = this.ewsProxy.selectCalendard(calId);
-      Boolean success = calendar != null;
-      callbackContext.success(success);
+      calId = args.getString(0);
+      calendar = this.ewsProxy.selectCalendard(calId);
+      success = calendar != null;
+      callbackContext.success(java.lang.Boolean.toString(success));
       return success;
 
       case "findMeetings":
-      String startISO = args.getString(0);
-      String endISO = args.getString(1);
-      JSONArray meetings = this.ewsProxy.findMeetings(startISO, endISO);
-      Boolean success = meetings != null;
+      startISO = args.getString(0);
+      endISO = args.getString(1);
+      meetings = this.ewsProxy.findMeetings(startISO, endISO);
+      success = meetings != null;
       callbackContext.success(meetings);
       return success;
 
       case "createMeeting":
-      JSONObject jsMeeting = args.getJSONObject(0);
-      String meetingId = this.ewsProxy.createMeeting(jsMeeting);
-      Boolean success = meetingId != null;
+      jsMeeting = args.getJSONObject(0);
+      meetingId = this.ewsProxy.createMeeting(jsMeeting);
+      success = meetingId != null;
       callbackContext.success(meetingId);
       return success;
 
       case "updateMeeting":
-      JSONObject jsMeeting = args.getJSONObject(0);
-      String meetingId = this.ewsProxy.updateMeeting(jsMeeting);
-      Boolean success = meetingId != null;
+      jsMeeting = args.getJSONObject(0);
+      meetingId = this.ewsProxy.updateMeeting(jsMeeting);
+      success = meetingId != null;
       callbackContext.success(meetingId);
       return success;
 
