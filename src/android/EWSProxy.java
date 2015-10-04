@@ -1,8 +1,10 @@
 package org.apache.cordova.plugin;
 
 import java.util.*;
+import java.text.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import microsoft.exchange.webservices.data.*;
 import microsoft.exchange.webservices.data.credential.*;
 import microsoft.exchange.webservices.data.search.*;
@@ -12,6 +14,7 @@ import microsoft.exchange.webservices.data.core.service.item.*;
 import microsoft.exchange.webservices.data.core.service.folder.*;
 import microsoft.exchange.webservices.data.core.enumeration.property.*;
 import microsoft.exchange.webservices.data.core.enumeration.misc.*;
+import microsoft.exchange.webservices.data.core.enumeration.service.*;
 import microsoft.exchange.webservices.data.autodiscover.*;
 import microsoft.exchange.webservices.data.property.complex.*;
 import microsoft.exchange.webservices.data.misc.*;
@@ -20,16 +23,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.lang3.ArrayUtils;
 
 
 class RedirectionUrlCallback implements IAutodiscoverRedirectionUrl {
-  public static boolean autodiscoverRedirectionUrlValidationCallback(String redirectionUrl) {
+  public boolean autodiscoverRedirectionUrlValidationCallback(String redirectionUrl) {
     return redirectionUrl.toLowerCase().startsWith("https://");
   }
 }
@@ -47,18 +46,18 @@ public class EWSProxy {
 
     this.service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
 
-    if (server != null) {
+    if (serverUrl != null) {
       try {
-        service.setUrl(new URI(serverUrl));//"https://domain/EWS/Exchange.asmx"
+        this.service.setUrl(new URI(serverUrl));//"https://domain/EWS/Exchange.asmx"
       } catch (URISyntaxException e) {
         e.printStackTrace();
       }
     } else if (email != null) {
-      service.autodiscoverUrl(email, new RedirectionUrlCallback());
+      this.service.autodiscoverUrl(email, new RedirectionUrlCallback());
     } else {
       // should raise error here
     }
-    service.setTraceEnabled(true);
+    this.service.setTraceEnabled(true);
     this.connect(email, password);
   }
 
@@ -85,7 +84,7 @@ public class EWSProxy {
   }
 
   public String createMeeting(JSONObject jsMeeting){
-    return this.createMeeting(this.defaultCalendar.getId(), new JSONObject(jsString));
+    return this.createMeeting(this.defaultCalendar.getId(), new JSONObject(jsMeeting));
   }
 
   public String createMeeting(String jsString){
@@ -106,14 +105,14 @@ public class EWSProxy {
       throw new Exception("UpdateMeeting : missing meeting Id");
     }
 
-    AppointmentWrapper appointment = AppointmentWrapper.bind(this.service, new ItemId(meetingId));
+    AppointmentWrapper appointment = (AppointmentWrapper)AppointmentWrapper.bind(this.service, new ItemId(meetingId));
     appointment.setJsData(jsMeeting);
     appointment.update(ConflictResolutionMode.AutoResolve, SendInvitationsOrCancellationsMode.SendOnlyToChanged);
-    return appointment.getId();
+    return appointment.getId().toString();
   }
 
   public void cancelMeeting(String uniqueId){
-    Appointment appointment = Appointment.bind(this.service, new ItemId(uniqueId));
+    Appointment appointment = (AppointmentWrapper)Appointment.bind(this.service, new ItemId(uniqueId));
     appointment.cancelMeeting();
   }
 
@@ -131,8 +130,8 @@ public class EWSProxy {
   }
 
   public JSONArray findMeetings(CalendarFolder folder, String startDateISO, String endDateISO) {
-    Date startDate = javax.xml.bind.DatatypeConverter.parseDateTime(startDateISO);
-    Date endDate = javax.xml.bind.DatatypeConverter.parseDateTime(endDateISO);
+    Date startDate = javax.xml.bind.DatatypeConverter.parseDateTime(startDateISO).getTime();
+    Date endDate = javax.xml.bind.DatatypeConverter.parseDateTime(endDateISO).getTime();
     List<AppointmentWrapper> meetings = this.findMeetings(folder, startDate, endDate);
 
     JSONArray jsonMeetings = new JSONArray();

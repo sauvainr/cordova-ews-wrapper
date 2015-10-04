@@ -5,8 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.Date;
 import java.util.Locale;
 
@@ -14,11 +13,17 @@ import microsoft.exchange.webservices.data.*;
 import microsoft.exchange.webservices.data.core.*;
 import microsoft.exchange.webservices.data.core.service.item.*;
 import microsoft.exchange.webservices.data.core.enumeration.property.*;
+import microsoft.exchange.webservices.data.property.complex.*;
 
 import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class AppointmentWrapper extends Appointment {
+
+  public AppointmentWrapper(ExchangeService service){
+    super.(service);
+  }
+
   public void setJsData(String jsString){
     this.setJsData(new JSONObject(jsString));
   }
@@ -34,13 +39,13 @@ public class AppointmentWrapper extends Appointment {
 
     String startDateISO = jsObject.optString("start");
     if(startDateISO != null){
-      Date startDate = javax.xml.bind.DatatypeConverter.parseDateTime(startDateISO);
+      Date startDate = javax.xml.bind.DatatypeConverter.parseDateTime(startDateISO).getTime();
       this.setStart(startDate);
     }
 
     String endDateISO = jsObject.optString("end");
     if(endDateISO != null){
-      Date endDate = javax.xml.bind.DatatypeConverter.parseDateTime(endDateISO);
+      Date endDate = javax.xml.bind.DatatypeConverter.parseDateTime(endDateISO).getTime();
       this.setEnd(endDate);
     }
 
