@@ -168,7 +168,7 @@ public class EWSProxy {
   }
 
   public CalendarFolder getRootCalendar() {
-    return this.getCalendar(FolderId(WellKnownFolderName.Calendar));
+    return this.getCalendar(new FolderId(WellKnownFolderName.Calendar));
   }
 
   public CalendarFolder getCalendar(String calId) {
@@ -195,12 +195,12 @@ public class EWSProxy {
   }
 
   public List<CalendarFolder> getCalendars() {
-    return this.getCalendars(FolderId(WellKnownFolderName.PublicFoldersRoot));
+    return this.getCalendars(new FolderId(WellKnownFolderName.PublicFoldersRoot));
   }
 
   public List<CalendarFolder> getCalendars(FolderId calId) {
     if(this.calendars == null) {
-      FindFoldersResults findResults = this.service.findFolders(calId, new FolderView());
+      FindFoldersResults findResults = this.service.findFolders(calId, new FolderView(Integer.MAX_VALUE));
       this.calendars = findResults.folders;
     }
     return this.calendars;
@@ -230,7 +230,7 @@ public class EWSProxy {
       }
     }
 
-    return this.getCalendar(FolderId(WellKnownFolderName.Calendar));
+    return this.getCalendar(new FolderId(WellKnownFolderName.Calendar));
   }
 
   public CalendarFolder selectCalendarByName(String name) {
