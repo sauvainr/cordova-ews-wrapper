@@ -51,6 +51,7 @@ public class EWSProxy {
         this.service.setUrl(new URI(serverUrl));//"https://domain/EWS/Exchange.asmx"
       } catch (URISyntaxException e) {
         e.printStackTrace();
+        return;
       }
     } else if (email != null) {
       this.service.autodiscoverUrl(email, new RedirectionUrlCallback());
@@ -96,10 +97,10 @@ public class EWSProxy {
   }
 
   public String updateMeeting(String jsString){
-    this.updateMeeting(new JSONObject(jsString));
+    return this.updateMeeting(new JSONObject(jsString));
   }
 
-  public String updateMeeting(JSONObject jsMeeting){
+  public String updateMeeting(JSONObject jsMeeting) throws Exception{
     String meetingId = jsMeeting.getString("id");
     if(meetingId == null) {
       throw new Exception("UpdateMeeting : missing meeting Id");
