@@ -1,4 +1,5 @@
 apply plugin: "java"
+apply plugin: "javax"
 
 repositories {
     mavenCentral()
@@ -9,6 +10,5 @@ repositories {
 
 dependencies {
     compile 'org.apache.commons:commons-lang3:3.0'
-      runtime 'javax.xml.bind:jaxb-api:2.2.4'
     compile 'com.microsoft.ews-java-api:ews-java-api:3.0-SNAPSHOT'
 }
