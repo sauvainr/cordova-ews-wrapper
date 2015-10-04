@@ -24,11 +24,11 @@ public class AppointmentWrapper extends Appointment {
     super(service);
   }
 
-  public void setJsData(String jsString){
+  public void setJsData(String jsString) throws Exception{
     this.setJsData(new JSONObject(jsString));
   }
 
-  public void setJsData(JSONObject jsObject){
+  public void setJsData(JSONObject jsObject) throws Exception{
     String subject = jsObject.optString("title");
     if(subject != null)
       this.setSubject(subject);
@@ -66,11 +66,11 @@ public class AppointmentWrapper extends Appointment {
 
   } // setJsData
 
-  public String getJsString(){
+  public String getJsString() throws Exception{
     return this.getJsData().toString();
   }
 
-  public JSONObject getJsData(){
+  public JSONObject getJsData() throws Exception{
     JSONObject jsData = new JSONObject();
 
     jsData.put("title", this.getSubject());
