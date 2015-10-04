@@ -137,7 +137,7 @@ public class EWSProxy {
     JSONArray jsonMeetings = new JSONArray();
 
     for (AppointmentWrapper meeting : meetings) {
-      jsonMeetings.add(meeting.getJsData());
+      jsonMeetings.put(meeting.getJsData());
     }
 
     return jsonMeetings;
@@ -168,7 +168,7 @@ public class EWSProxy {
   }
 
   public CalendarFolder getRootCalendar() {
-    return this.getCalendar(WellKnownFolderName.Calendar.getId());
+    return this.getCalendar(FolderId(WellKnownFolderName.Calendar));
   }
 
   public CalendarFolder getCalendar(String calId) {
@@ -188,20 +188,20 @@ public class EWSProxy {
       JSONObject jsonCalendar = new JSONObject();
       jsonCalendar.put("id",calendar.getId());
       jsonCalendar.put("title",calendar.getDisplayName());
-      jsonCalendars.add(jsonCalendar);
+      jsonCalendars.put(jsonCalendar);
     }
 
     return jsonCalendars;
   }
 
   public List<CalendarFolder> getCalendars() {
-    return this.getCalendars(WellKnownFolderName.PublicFoldersRoot.getId());
+    return this.getCalendars(FolderId(WellKnownFolderName.PublicFoldersRoot));
   }
 
   public List<CalendarFolder> getCalendars(FolderId calId) {
     if(this.calendars == null) {
-      FindFoldersResults findResults = this.service.findFolders(calId);
-      this.calendars = findResults.Folders;
+      FindFoldersResults findResults = this.service.findFolders(calId, new FolderView());
+      this.calendars = findResults.folders;
     }
     return this.calendars;
   }
@@ -225,12 +225,12 @@ public class EWSProxy {
 
     // for (int i = 0, len = this.calendars.length(); i < len; i++) {
     for(CalendarFolder calendar : this.calendars) {
-      if(this.calendar.getDisplayName() == name) {
-        return this.calendar;
+      if(calendar.getDisplayName() == name) {
+        return calendar;
       }
     }
 
-    return this.getCalendar(WellKnownFolderName.Calendar.getId());
+    return this.getCalendar(FolderId(WellKnownFolderName.Calendar));
   }
 
   public CalendarFolder selectCalendarByName(String name) {

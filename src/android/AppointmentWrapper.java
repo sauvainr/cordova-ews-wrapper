@@ -59,7 +59,7 @@ public class AppointmentWrapper extends Appointment {
       this.getRequiredAttendees().clear();
 
       for (int i = 0, len = attendees.length(); i < len; i++) {
-          this.getRequiredAttendees().add(attendees[i]);
+          this.getRequiredAttendees().add(attendees.getString(i));
       }
 
     }//attendees

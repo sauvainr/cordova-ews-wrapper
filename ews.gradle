@@ -10,7 +10,8 @@ dependencies {
     compile 'javax.xml.bind:jaxb-api:2.2.4'
     compile 'com.microsoft.ews-java-api:ews-java-api:3.0-SNAPSHOT'
 }
- android {
+
+android {
     defaultConfig {
         minSdkVersion 7
     }
@@ -18,5 +19,14 @@ dependencies {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+ext.postBuildExtras = {
+    android {
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_7
+            targetCompatibility JavaVersion.VERSION_1_7
+        }
     }
 }
