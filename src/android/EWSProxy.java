@@ -92,7 +92,7 @@ public class EWSProxy {
     return this.createMeeting(new JSONObject(jsString));
   }
 
-  public String createMeeting(CalendarFolder calendar, JSONObject jsMeeting){
+  public String createMeeting(CalendarFolder calendar, JSONObject jsMeeting) throws Exception{
     return this.createMeeting(calendar.getId(), jsMeeting);
   }
 
