@@ -18,6 +18,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import microsoft.exchange.webservices.data.core.service.folder.*;
+
 /**
 * This class check if google play is installed
 */
@@ -113,10 +115,4 @@ public class EWSWrapper extends CordovaPlugin {
     callbackContext.error("Action failed..");
     return false;
   }
-
-  public void connect(String email, String password) {
-    ExchangeCredentials credentials = new WebCredentials(email, password);
-    this.service.setCredentials(credentials);
-  }
-
 }

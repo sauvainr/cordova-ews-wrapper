@@ -4,13 +4,15 @@ import java.util.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import microsoft.exchange.webservices.data.*;
+import microsoft.exchange.webservices.data.credential.*;
+import microsoft.exchange.webservices.data.search.*;
 import microsoft.exchange.webservices.data.core.*;
 import microsoft.exchange.webservices.data.core.service.*;
 import microsoft.exchange.webservices.data.core.service.item.*;
 import microsoft.exchange.webservices.data.core.service.folder.*;
 import microsoft.exchange.webservices.data.core.enumeration.property.*;
+import microsoft.exchange.webservices.data.core.enumeration.misc.*;
 import microsoft.exchange.webservices.data.autodiscover.*;
-import microsoft.exchange.webservices.data.property.*;
 import microsoft.exchange.webservices.data.property.complex.*;
 import microsoft.exchange.webservices.data.misc.*;
 
@@ -26,8 +28,8 @@ import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.lang3.ArrayUtils;
 
 
-static class RedirectionUrlCallback implements IAutodiscoverRedirectionUrl {
-  public boolean autodiscoverRedirectionUrlValidationCallback(String redirectionUrl) {
+class RedirectionUrlCallback implements IAutodiscoverRedirectionUrl {
+  public static boolean autodiscoverRedirectionUrlValidationCallback(String redirectionUrl) {
     return redirectionUrl.toLowerCase().startsWith("https://");
   }
 }
@@ -101,7 +103,7 @@ public class EWSProxy {
   public String updateMeeting(JSONObject jsMeeting){
     String meetingId = jsMeeting.getString("id");
     if(meetingId == null) {
-      throw new Exceptions("UpdateMeeting : missing meeting Id");
+      throw new Exception("UpdateMeeting : missing meeting Id");
     }
 
     AppointmentWrapper appointment = AppointmentWrapper.bind(this.service, new ItemId(meetingId));
