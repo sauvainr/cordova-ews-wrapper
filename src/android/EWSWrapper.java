@@ -37,8 +37,10 @@ public class EWSWrapper extends CordovaPlugin {
   */
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+    System.out.println("EWSWrapper, getting action : " + action.toLowerCase());
+
     if(this.ewsProxy == null && action.toLowerCase() != "init"){
-      callbackContext.error("Not initialized yet.");
+      callbackContext.error("ERROR: Not initialized yet.");
       return false;
     }
 
@@ -66,10 +68,15 @@ public class EWSWrapper extends CordovaPlugin {
       serverUrl = args.getString(0);
       email = args.getString(1);
       password = args.getString(2);
+      System.out.println("Connecting to " + serverUrl+' with '+email);
       this.ewsProxy = new EWSProxy(serverUrl, email, password);
       success = this.ewsProxy != null && this.ewsProxy.defaultCalendar != null;
-      callbackContext.success(java.lang.Boolean.toString(success));
-      return success;
+      if(success) {
+        System.out.println("Default calendar : " + this.ewsProxy.defaultCalendar.getId());
+        callbackContext.success(java.lang.Boolean.toString(success));
+        return success;
+      }
+      break;
 
       case "connect":
       email = args.getString(0);
@@ -126,7 +133,7 @@ public class EWSWrapper extends CordovaPlugin {
       return success;
 
       default:
-      callbackContext.error("Unknown action.");
+      callbackContext.error("ERROR: Unknown action.");
       return false;
     }
 
@@ -135,7 +142,7 @@ public class EWSWrapper extends CordovaPlugin {
     callbackContext.error(e.getMessage());
     return false;
   }
-    callbackContext.error("Action failed..");
+    callbackContext.error("ERROR: Action failed.");
     return false;
   }
 }
