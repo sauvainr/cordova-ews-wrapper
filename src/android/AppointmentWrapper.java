@@ -10,9 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import microsoft.exchange.webservices.data.Item;
-import microsoft.exchange.webservices.data.ItemView;
-import microsoft.exchange.webservices.data.ExchangeService;
+import microsoft.exchange.webservices.data.*;
 
 import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.lang.ArrayUtils;
