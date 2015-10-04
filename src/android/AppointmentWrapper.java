@@ -21,7 +21,7 @@ import org.apache.commons.lang3.ArrayUtils;
 public class AppointmentWrapper extends Appointment {
 
   public AppointmentWrapper(ExchangeService service){
-    super.(service);
+    super(service);
   }
 
   public void setJsData(String jsString){
