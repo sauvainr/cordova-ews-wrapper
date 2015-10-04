@@ -20,7 +20,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 public class AppointmentWrapper extends Appointment {
 
-  public AppointmentWrapper(ExchangeService service){
+  public AppointmentWrapper(ExchangeService service) throws Exception{
     super(service);
   }
 
