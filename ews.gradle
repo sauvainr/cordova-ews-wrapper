@@ -1,4 +1,3 @@
-apply plugin: "javax"
 
 repositories {
     mavenCentral()
@@ -9,6 +8,7 @@ repositories {
 
 dependencies {
     compile 'com.microsoft.ews-java-api:ews-java-api:3.0-SNAPSHOT'
+    compile 'org.apache.commons:commons-lang3:3.0'
 }
 
 android {
