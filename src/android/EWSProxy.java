@@ -201,7 +201,7 @@ public class EWSProxy {
   public List<CalendarFolder> getCalendars(FolderId calId) {
     if(this.calendars == null) {
       FindFoldersResults findResults = this.service.findFolders(calId, new FolderView(Integer.MAX_VALUE));
-      this.calendars = findResults.getFolders();
+      this.calendars = (List<CalendarFolder>)findResults.getFolders();
     }
     return this.calendars;
   }
