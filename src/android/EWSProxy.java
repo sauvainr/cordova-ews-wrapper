@@ -23,7 +23,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.lang3.ArrayUtils;
 
 
@@ -131,9 +130,9 @@ public class EWSProxy {
   }
 
   public JSONArray findMeetings(CalendarFolder folder, String startDateISO, String endDateISO) throws Exception {
-    Date startDate = javax.xml.bind.DatatypeConverter.parseDateTime(startDateISO).getTime();
-    Date endDate = javax.xml.bind.DatatypeConverter.parseDateTime(endDateISO).getTime();
-    List<AppointmentWrapper> meetings = this.findMeetings(folder, startDate, endDate);
+    DateTime startDate = new DateTime(startDateISO);
+    DateTime endDate = new DateTime(endDateISO);
+    List<AppointmentWrapper> meetings = this.findMeetings(folder, startDate.toDate(), endDate.toDate());
 
     JSONArray jsonMeetings = new JSONArray();
 
