@@ -23,7 +23,7 @@ import java.util.Locale;
 */
 public class EWSWrapper extends CordovaPlugin {
 
-  private EWSProxy ewsProxy = null
+  private EWSProxy ewsProxy = null;
 
   /**
   * Executes the request and returns PluginResult.

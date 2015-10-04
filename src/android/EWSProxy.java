@@ -9,7 +9,7 @@ import microsoft.exchange.webservices.data.FindItemsResults;
 import microsoft.exchange.webservices.data.Item;
 import microsoft.exchange.webservices.data.ItemView;
 import microsoft.exchange.webservices.data.WebCredentials;
-import microsoft.exchange.webservices.data.WellKnownFolderName
+import microsoft.exchange.webservices.data.WellKnownFolderName;
 import microsoft.exchange.webservices.data.Folder;
 import microsoft.exchange.webservices.data.IAutodiscoverRedirectionUrl;
 import org.json.JSONArray;
@@ -119,7 +119,7 @@ public class EWSProxy {
   }
 
   public List<AppointmentWrapper> findMeetings(Date startDate, Date endDate) {
-    return this.findMeetings(this.defaultCalendar, startDate, endDate)
+    return this.findMeetings(this.defaultCalendar, startDate, endDate);
   }
 
   public JSONArray findMeetings(String start, String end) {
@@ -129,11 +129,11 @@ public class EWSProxy {
   public JSONArray findMeetings(CalendarFolder folder, String startDateISO, String endDateISO) {
     Date startDate = javax.xml.bind.DatatypeConverter.parseDateTime(startDateISO);
     Date endDate = javax.xml.bind.DatatypeConverter.parseDateTime(endDateISO);
-    List<AppointmentWrapper> meetings = this.findMeetings(folder, startDate, endDate)
+    List<AppointmentWrapper> meetings = this.findMeetings(folder, startDate, endDate);
 
     JSONArray jsonMeetings = new JSONArray();
 
-    for (int i = 0, int len = meetings.length(); i < len; i++) {
+    for (int i = 0, len = meetings.length(); i < len; i++) {
       jsonMeetings.add(meetings[i].getJsData());
     }
 
@@ -180,7 +180,7 @@ public class EWSProxy {
     List<CalendarFolder> calendars = this.getCalendars();
     JSONArray jsonCalendars = new JSONArray();
 
-    for (int i = 0, int len = calendars.length(); i < len; i++) {
+    for (int i = 0, len = calendars.length(); i < len; i++) {
       JSONArray jsonCalendar = new JSONArray();
       jsonCalendar.put("id",calendars[i].getId());
       jsonCalendar.put("title",calendars[i].getDisplayName());
@@ -197,7 +197,7 @@ public class EWSProxy {
   public List<CalendarFolder> getCalendars(FolderId calId) {
     if(this.calendars == null) {
       FindFoldersResults findResults = this.service.FindFolders(calId);
-      this.calendars = findResults.Folders
+      this.calendars = findResults.Folders;
     }
     return this.calendars;
   }
@@ -219,7 +219,7 @@ public class EWSProxy {
     if(this.calendars == null)
     this.getCalendars();
 
-    for (int i = 0, int len = this.calendars.length(); i < len; i++) {
+    for (int i = 0, len = this.calendars.length(); i < len; i++) {
       if(this.calendars[i].getDisplayName() == name) {
         return this.calendars[i];
       }
