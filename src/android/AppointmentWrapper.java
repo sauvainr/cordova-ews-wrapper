@@ -39,7 +39,7 @@ public class AppointmentWrapper extends Appointment {
 
     String startDateISO = jsObject.optString("start");
     if(startDateISO != null){
-      DateTime endDate = new DateTime(endDateISO);
+      DateTime startDate = new DateTime(startDateISO);
       this.setStart(startDate.toDate());
     }
 
