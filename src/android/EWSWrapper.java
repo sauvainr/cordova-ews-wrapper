@@ -36,7 +36,7 @@ public class EWSWrapper extends CordovaPlugin {
   * @return                  True if the action was valid, false otherwise.
   */
   @Override
-  public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws  throws Exception {
+  public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws Exception {
     if(this.ewsProxy == null && action.toLowerCase() != "init"){
       callbackContext.error("Not initialized yet.");
       return false;
