@@ -42,7 +42,7 @@ public class EWSProxy {
   public CalendarFolder defaultCalendar = null;
   public List<CalendarFolder> calendars = null;
 
-  public EWSProxy(String serverUrl, String email, String password){
+  public EWSProxy(String serverUrl, String email, String password) throws Exception{
 
     this.service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
 
@@ -62,7 +62,7 @@ public class EWSProxy {
     this.connect(email, password);
   }
 
-  public Boolean connect(String email, String password) {
+  public Boolean connect(String email, String password)  throws Exception {
     ExchangeCredentials credentials = new WebCredentials(email, password);
     this.service.setCredentials(credentials);
 
@@ -77,7 +77,7 @@ public class EWSProxy {
   * MEETING FUNCTIONS
   *
   **/
-  public String createMeeting(FolderId calId, JSONObject jsMeeting){
+  public String createMeeting(FolderId calId, JSONObject jsMeeting) throws Exception{
     AppointmentWrapper appointment = new AppointmentWrapper(this.service);
     appointment.setJsData(jsMeeting);
     appointment.save(calId);
@@ -88,7 +88,7 @@ public class EWSProxy {
     return this.createMeeting(this.defaultCalendar.getId(), jsMeeting);
   }
 
-  public String createMeeting(String jsString){
+  public String createMeeting(String jsString) throws Exception{
     return this.createMeeting(new JSONObject(jsString));
   }
 
@@ -96,7 +96,7 @@ public class EWSProxy {
     return this.createMeeting(calendar.getId(), jsMeeting);
   }
 
-  public String updateMeeting(String jsString){
+  public String updateMeeting(String jsString) throws Exception{
     return this.updateMeeting(new JSONObject(jsString));
   }
 
@@ -112,12 +112,12 @@ public class EWSProxy {
     return appointment.getId().toString();
   }
 
-  public void cancelMeeting(String uniqueId){
+  public void cancelMeeting(String uniqueId) throws Exception{
     Appointment appointment = (AppointmentWrapper)Appointment.bind(this.service, new ItemId(uniqueId));
     appointment.cancelMeeting();
   }
 
-  public List<AppointmentWrapper> findMeetings(CalendarFolder folder, Date startDate, Date endDate) {
+  public List<AppointmentWrapper> findMeetings(CalendarFolder folder, Date startDate, Date endDate) throws Exception{
     FindItemsResults<AppointmentWrapper> findResults = (FindItemsResults<AppointmentWrapper>)(Object)folder.findAppointments(new CalendarView(startDate, endDate));
     return findResults.getItems();
   }
@@ -151,7 +151,7 @@ public class EWSProxy {
   *
   **/
 
-  public CalendarFolder createCalendar(String name) {
+  public CalendarFolder createCalendar(String name) throws Exception{
     CalendarFolder calendar = new CalendarFolder(this.service);
     calendar.setDisplayName(name);
     calendar.save(WellKnownFolderName.PublicFoldersRoot);
@@ -162,7 +162,7 @@ public class EWSProxy {
     return calendar;
   }
 
-  public void updateCalendar(String calId, String name) {
+  public void updateCalendar(String calId, String name) throws Exception{
     CalendarFolder calendar = this.getCalendar(calId);
     calendar.setDisplayName(name);
     calendar.update();
@@ -172,15 +172,15 @@ public class EWSProxy {
     return this.getCalendar(new FolderId(WellKnownFolderName.Calendar));
   }
 
-  public CalendarFolder getCalendar(String calId) {
+  public CalendarFolder getCalendar(String calId) throws Exception {
     return this.getCalendar(new FolderId(calId));
   }
 
-  public CalendarFolder getCalendar(FolderId calId) {
+  public CalendarFolder getCalendar(FolderId calId) throws Exception {
     return CalendarFolder.bind(this.service, calId);
   }
 
-  public JSONArray getJSONCalendars() {
+  public JSONArray getJSONCalendars() throws Exception {
     List<CalendarFolder> calendars = this.getCalendars();
     JSONArray jsonCalendars = new JSONArray();
 
@@ -199,7 +199,7 @@ public class EWSProxy {
     return this.getCalendars(new FolderId(WellKnownFolderName.PublicFoldersRoot));
   }
 
-  public List<CalendarFolder> getCalendars(FolderId calId) {
+  public List<CalendarFolder> getCalendars(FolderId calId) throws Exception {
     if(this.calendars == null) {
       FindFoldersResults findResults = this.service.findFolders(calId, new FolderView(Integer.MAX_VALUE));
 
@@ -222,11 +222,11 @@ public class EWSProxy {
     return calendar.getId().toString();
   }
 
-  public String getCalendarName(String calId) {
+  public String getCalendarName(String calId) throws Exception {
     return this.getCalendar(calId).getDisplayName();
   }
 
-  public CalendarFolder getCalendarByName(String name) {
+  public CalendarFolder getCalendarByName(String name) throws Exception {
     if(this.calendars == null)
     this.getCalendars();
 
