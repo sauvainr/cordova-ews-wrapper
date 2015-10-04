@@ -13,6 +13,12 @@ import java.util.Locale;
 import Microsoft.Exchange.WebServices.Data;
 import Microsoft.Exchange.WebServices.Data.*;
 
+import microsoft.exchange.webservices.data;
+import microsoft.exchange.webservices.data.*;
+import microsoft.exchange.webservices.data.core.*;
+import microsoft.exchange.webservices.data.core.service.item.*;
+import microsoft.exchange.webservices.data.core.enumeration.property.*;
+
 import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.lang3.ArrayUtils;
 
