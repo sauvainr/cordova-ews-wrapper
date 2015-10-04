@@ -68,7 +68,7 @@ public class EWSWrapper extends CordovaPlugin {
       serverUrl = args.getString(0);
       email = args.getString(1);
       password = args.getString(2);
-      System.out.println("Connecting to " + serverUrl+' with '+email);
+      System.out.println("Connecting to " + serverUrl+" with "+email);
       this.ewsProxy = new EWSProxy(serverUrl, email, password);
       success = this.ewsProxy != null && this.ewsProxy.defaultCalendar != null;
       if(success) {
