@@ -184,7 +184,7 @@ public class EWSProxy {
     JSONArray jsonCalendars = new JSONArray();
 
     // for (int i = 0, len = calendars.length(); i < len; i++) {
-    fir(CalendarFolder calendar : calendars){
+    for(CalendarFolder calendar : calendars){
       JSONObject jsonCalendar = new JSONObject();
       jsonCalendar.put("id",calendar.getId());
       jsonCalendar.put("title",calendar.getDisplayName());
