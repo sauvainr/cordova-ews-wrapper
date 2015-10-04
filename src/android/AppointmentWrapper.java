@@ -13,8 +13,7 @@ import java.util.Locale;
 import microsoft.exchange.webservices.data.*;
 
 import javax.xml.bind.DatatypeConverter;
-import org.apache.commons.lang.ArrayUtils;
-
+import org.apache.commons.lang3.ArrayUtils;
 
 public class AppointmentWrapper extends Appointment {
   public void setJsData(String jsString){

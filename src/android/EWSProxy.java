@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import javax.xml.bind.DatatypeConverter;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 
 static class RedirectionUrlCallback implements IAutodiscoverRedirectionUrl {
