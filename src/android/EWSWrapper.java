@@ -40,8 +40,9 @@ public class EWSWrapper extends CordovaPlugin {
     System.out.println("EWSWrapper, getting action : " + action.toLowerCase());
 
     if(this.ewsProxy == null && action.toLowerCase() != "init"){
-      callbackContext.error("ERROR: Not initialized yet.");
-      return false;
+      System.out.println("should not me init  : " + action.toLowerCase());
+      // callbackContext.error("ERROR: Not initialized yet.");
+      // return false;
     }
 
     String serverUrl = null;
