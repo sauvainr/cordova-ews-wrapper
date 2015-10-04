@@ -1,0 +1,12 @@
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+}
+
+dependencies {
+    compile 'org.apache.commons:commons-lang3:3.0'
+    compile 'javax.xml.bind:jaxb-api:2.2.4'
+    compile 'com.microsoft.ews-java-api:ews-java-api:3.0-SNAPSHOT'
+}
