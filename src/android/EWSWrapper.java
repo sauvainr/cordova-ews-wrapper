@@ -36,7 +36,7 @@ public class EWSWrapper extends CordovaPlugin {
   * @return                  True if the action was valid, false otherwise.
   */
   @Override
-  public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws Exception {
+  public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
     if(this.ewsProxy == null && action.toLowerCase() != "init"){
       callbackContext.error("Not initialized yet.");
       return false;
@@ -57,6 +57,8 @@ public class EWSWrapper extends CordovaPlugin {
     JSONArray calendars = null;
     JSONArray meetings = null;
     JSONObject jsMeeting = null;
+
+    try {
 
     switch (action.toLowerCase()) {
 
@@ -128,6 +130,9 @@ public class EWSWrapper extends CordovaPlugin {
       return false;
     }
 
+  }catch(Exception e){
+    throw new JSONException(e.getMessage());
+  }
     callbackContext.error("Action failed..");
     return false;
   }
