@@ -7,7 +7,6 @@ repositories {
 }
 
 dependencies {
-    compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'com.microsoft.ews-java-api:ews-java-api:3.0-SNAPSHOT'
     compile 'org.apache.commons:commons-lang3:3.0'
     compile 'joda-time:joda-time:2.3'
