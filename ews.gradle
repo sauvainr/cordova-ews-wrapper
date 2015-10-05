@@ -10,7 +10,9 @@ dependencies {
     compile 'com.microsoft.ews-java-api:ews-java-api:3.0-SNAPSHOT'
     compile 'org.apache.commons:commons-lang3:3.0'
     compile 'joda-time:joda-time:2.3'
-    compile 'org.apache.httpcomponents:httpclient-osgi:4.3.6'
+    compile 'org.apache.httpcomponents:httpclient-osgi:4.3.6' {
+      exclude group: 'org.apache.commons.codec.Decoder'
+    }
 }
 
 android {
