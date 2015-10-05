@@ -11,8 +11,8 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.0'
     compile 'joda-time:joda-time:2.3'
     compile ('org.apache.httpcomponents:httpclient-android:4.3.5.1') {
-      exclude group: 'org.apache.http', module: 'Consts'
-      exclude group: 'org.apache.httpcomponents', module: 'Consts'
+      exclude group: 'org.apache.http', module: 'consts'
+      exclude group: 'org.apache.httpcomponents', module: 'consts'
     }
 }
 
