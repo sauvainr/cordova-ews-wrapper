@@ -25,8 +25,6 @@ import microsoft.exchange.webservices.data.core.service.folder.*;
 */
 public class EWSWrapper extends CordovaPlugin {
 
-  array[] functionMap
-
   private EWSProxy ewsProxy = null;
 
   /**
