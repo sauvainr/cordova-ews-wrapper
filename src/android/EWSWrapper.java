@@ -25,6 +25,8 @@ import microsoft.exchange.webservices.data.core.service.folder.*;
 */
 public class EWSWrapper extends CordovaPlugin {
 
+  array[] functionMap
+
   private EWSProxy ewsProxy = null;
 
   /**
@@ -37,12 +39,14 @@ public class EWSWrapper extends CordovaPlugin {
   */
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-    System.out.println("EWSWrapper, getting action : " + action.toLowerCase());
+    action = action.toLowerCase();
 
-    if(this.ewsProxy == null && action.toLowerCase() != "init"){
-      System.out.println("should not me init  : " + action.toLowerCase());
-      // callbackContext.error("ERROR: Not initialized yet.");
-      // return false;
+    System.out.println("EWSWrapper, getting action : " +action);
+
+    if(this.ewsProxy == null && !action.equals("init")){
+      System.out.println("should not me init  : " + action);
+      callbackContext.error("ERROR: Not initialized yet.");
+      return false;
     }
 
     String serverUrl = null;
@@ -63,9 +67,7 @@ public class EWSWrapper extends CordovaPlugin {
 
     try {
 
-    switch (action.toLowerCase()) {
-
-      case "init":
+    if(action.equals("init")){
       serverUrl = args.getString(0);
       email = args.getString(1);
       password = args.getString(2);
@@ -77,24 +79,19 @@ public class EWSWrapper extends CordovaPlugin {
         callbackContext.success(java.lang.Boolean.toString(success));
         return success;
       }
-      break;
-
-      case "connect":
+    } else if(action.equals("connect")){
       email = args.getString(0);
       password = args.getString(1);
       success = this.ewsProxy.connect(email, password);
       callbackContext.success(java.lang.Boolean.toString(success));
       return success;
-
-      case "getCalendars":
+    } else if(action.equals("getCalendars")){
       calendars = this.ewsProxy.getJSONCalendars();
       if(calendars != null) {
         callbackContext.success(calendars);
         return true;
       }
-      break;
-
-      case "createCalendar":
+    } else if(action.equals("createCalendar")){
       title = args.getString(0);
       calendar = this.ewsProxy.createCalendar(title);
       if(calendar != null){
@@ -102,40 +99,31 @@ public class EWSWrapper extends CordovaPlugin {
         callbackContext.success(calId);
         return true;
       }
-      break;
-
-      case "selectCalendar":
+    } else if(action.equals("selectCalendar")){
       calId = args.getString(0);
       calendar = this.ewsProxy.selectCalendard(calId);
       success = calendar != null;
       callbackContext.success(java.lang.Boolean.toString(success));
       return success;
-
-      case "findMeetings":
+    } else if(action.equals("findMeetings")){
       startISO = args.getString(0);
       endISO = args.getString(1);
       meetings = this.ewsProxy.findMeetings(startISO, endISO);
       success = meetings != null;
       callbackContext.success(meetings);
       return success;
-
-      case "createMeeting":
+    } else if(action.equals("createMeeting")){
       jsMeeting = args.getJSONObject(0);
       meetingId = this.ewsProxy.createMeeting(jsMeeting);
       success = meetingId != null;
       callbackContext.success(meetingId);
       return success;
-
-      case "updateMeeting":
+    } else if(action.equals("updateMeeting")){
       jsMeeting = args.getJSONObject(0);
       meetingId = this.ewsProxy.updateMeeting(jsMeeting);
       success = meetingId != null;
       callbackContext.success(meetingId);
       return success;
-
-      default:
-      callbackContext.error("ERROR: Unknown action.");
-      return false;
     }
 
   }catch(Exception e){
@@ -143,7 +131,7 @@ public class EWSWrapper extends CordovaPlugin {
     callbackContext.error(e.getMessage());
     return false;
   }
-    callbackContext.error("ERROR: Action failed.");
+    callbackContext.error("ERROR: Unknown action "+action);
     return false;
   }
 }

@@ -26,20 +26,20 @@ android {
         exclude 'META-INF/ASL2.0'
     }
     defaultConfig {
-        minSdkVersion 7
+        minSdkVersion 6
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
     }
 }
 
 ext.postBuildExtras = {
     android {
         compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_7
-            targetCompatibility JavaVersion.VERSION_1_7
+            sourceCompatibility JavaVersion.VERSION_1_6
+            targetCompatibility JavaVersion.VERSION_1_6
         }
     }
 }
