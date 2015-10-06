@@ -23,6 +23,7 @@
     <source-file src="src/android/EWSWrapper.java" target-dir="src/org/apache/cordova/plugin" />
     <source-file src="src/android/EWSProxy.java" target-dir="src/org/apache/cordova/plugin" />
     <source-file src="src/android/AppointmentWrapper.java" target-dir="src/org/apache/cordova/plugin" />
+    <source-file src="libs/ews-java-api-netc-2.0.0.jar" target-dir="libs" />
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="EWSWrapper">
         <param name="android-package" value="org.apache.cordova.plugin.EWSWrapper"/>
